@@ -1,31 +1,31 @@
 import graphene
 from graphene_django import DjangoObjectType
 
-from .models import Lawyer, Client, Case, Speciality
+from .models import Case, Client, Lawyer, Speciality
 
 
 class LawyerType(DjangoObjectType):
     class Meta:
         model = Lawyer
-        fields = '__all__'
+        fields = "__all__"
 
 
 class ClientType(DjangoObjectType):
     class Meta:
         model = Client
-        fields = '__all__'
+        fields = "__all__"
 
 
 class CaseType(DjangoObjectType):
     class Meta:
         model = Case
-        fields = '__all__'
+        fields = "__all__"
 
 
 class SpecialityType(DjangoObjectType):
     class Meta:
         model = Speciality
-        fields = '__all__'
+        fields = "__all__"
 
 
 # Lawyer model mutations.
@@ -53,7 +53,7 @@ class UpdateLawyer(graphene.Mutation):
         try:
             lawyer = Lawyer.objects.get(pk=id)
         except Lawyer.DoesNotExist:
-            raise Exception('Lawyer does not exist')
+            raise Exception("Lawyer does not exist")
 
         if speciality is not None:
             lawyer.speciality = speciality
@@ -72,7 +72,7 @@ class DeleteLawyer(graphene.Mutation):
         try:
             lawyer = Lawyer.objects.get(pk=id)
         except Lawyer.DoesNotExist:
-            raise Exception('Lawyer is not exist')
+            raise Exception("Lawyer is not exist")
 
         lawyer.delete()
         return DeleteLawyer(success=True)
@@ -91,7 +91,9 @@ class CreateClient(graphene.Mutation):
     def mutate(self, info, first_name, surname, lawyer, case):
         lawyer = Lawyer.objects.get(pk=lawyer)
         case = Case.objects.get(pk=case)
-        client = Client(first_name=first_name, surname=surname, lawyer=lawyer, case=case)
+        client = Client(
+            first_name=first_name, surname=surname, lawyer=lawyer, case=case
+        )
         client.save()
         return CreateClient(client=client)
 
@@ -107,7 +109,7 @@ class UpdateClient(graphene.Mutation):
             lawyer = Lawyer.objects.get(pk=lawyer)
             client = Client.objects.get(pk=id)
         except Client.DoesNotExist or Lawyer.DoesNotExist:
-            raise Exception('Objects does not exists.')
+            raise Exception("Objects does not exists.")
 
         if lawyer is not None:
             client.lawyer.id = lawyer
@@ -126,7 +128,7 @@ class DeleteClient(graphene.Mutation):
         try:
             client = Client.objects.get(pk=id)
         except Client.DoesNotExist:
-            raise Exception('Clients does not exists.')
+            raise Exception("Clients does not exists.")
 
         client.delete()
         return DeleteClient(success=True)
