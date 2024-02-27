@@ -163,3 +163,13 @@ class Query(graphene.ObjectType):
         return Speciality.objects.all()
 
 
+class Mutation(graphene.ObjectType):
+    create_lawyer = CreateLawyer.Field()
+    create_client = CreateClient.Field()
+    update_lawyer = UpdateLawyer.Field()
+    update_client = UpdateClient.Field()
+    delete_lawyer = DeleteLawyer.Field()
+    delete_client = DeleteClient.Field()
+
+
+schema = graphene.Schema(query=Query, mutation=Mutation)
