@@ -29,5 +29,5 @@ class Lawyer(Name):
 
 
 class Client(Name):
-    lawyer = models.ForeignKey(Lawyer, on_delete=models)
-    case = models.ForeignKey(Case, on_delete=models)
+    lawyer = models.ForeignKey(Lawyer, on_delete=models.CASCADE)
+    case = models.ForeignKey(Case, on_delete=models.CASCADE)
