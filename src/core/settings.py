@@ -43,8 +43,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "graphene_django",
-    "graphql_auth",
-    "django_filters",
 ]
 
 INSTALLED_EXTENSIONS = ["office"]
