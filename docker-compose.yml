@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  web:
+    build: .
+    command: bash -c "poetry run src/manage.py makemigrations && poetry run src/manage.py migrate && poetry run src/manage.py && poetry run src/manage.py runserver 0.0.0.0:8002"
+    container_name: law_office
+    volumes:
+      - .:/law_office
+    ports:
+      - "8002:8002"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    container_name: postgresql_db
+    image: postgres:15
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+        POSTGRES_DB: ${DB_NAME}
+        POSTGRES_USER: ${DB_USER}
+        POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${DB_USER}"]
+      interval: 5s
+      timeout: 30s
+      retries: 6
