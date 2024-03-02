@@ -65,11 +65,6 @@ GRAPHENE = {
     ],
 }
 
-AUTHENTICATION_BACKENDS = [
-    "graphql_auth.backends.GraphQLAuthBackend",
-    "django.contrib.auth.backends.ModelBackend",
-]
-
 GRAPHQL_JWT = {
     "JWT_ALLOW_ANY_CLASSES": [
         "graphql_auth.mutations.Register",
