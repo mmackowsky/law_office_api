@@ -6,3 +6,9 @@ In this repository you will find law office system API build with usage of Graph
 App provide functionalities characteristic for GraphQL like query and mutations for Django models.
 Further there is containerization via Docker and Docker-compose and environment managed by Poetry.
 </p>
+
+## Tech stack
+- Python 3.11
+- Django 5.0.2
+- GraphQL (Graphene) 3.3
+- Poetry
